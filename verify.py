@@ -23,7 +23,7 @@ output_np = output_np.transpose()  # (N, C_out, H, W)
 
 # --- PyTorch comparison ---
 # Depthwise weights: (C_in, 1, KH, KW)
-depthwise_weight = torch.from_numpy(kernel_np.transpose(2, 0, 1)).unsqueeze(1)
+depthwise_weight = torch.from_numpy(kernel_np.transpose(2, 1, 0)).unsqueeze(1)
 
 # Pointwise weights: (C_out, C_in, 1, 1)
 pointwise_weight = torch.from_numpy(pw_filter_np).unsqueeze(-1).unsqueeze(-1)

@@ -32,12 +32,15 @@ def main():
     pw_filter = hl.ImageParam(hl.Float(32), 2, "pw_filter")  # (C_out, C_in)
     bias = hl.ImageParam(hl.Float(32), 1, "bias")  # (C_out)
 
-    bounded = hl.BoundaryConditions.repeat_edge(input)
+    bounded = hl.BoundaryConditions.constant_exterior(input, 0.0)
 
     # dw_conv
     r = hl.RDom([(0, kernel.dim(0).extent()), (0, kernel.dim(1).extent())])  # KW, KH
+    pad_x, pad_y = kernel.dim(0).extent() // 2, kernel.dim(1).extent() // 2
     dw[x, y, c, n] = hl.Expr(0.0)
-    dw[x, y, c, n] += bounded[x - r.x + 1, y - r.y + 1, c, n] * kernel[r.x, r.y, c]
+    dw[x, y, c, n] += (
+        bounded[x + r.x - pad_x, y + r.y - pad_y, c, n] * kernel[r.x, r.y, c]
+    )
 
     # pw_conv
     rc = hl.RDom([(0, input.dim(2).extent())])
