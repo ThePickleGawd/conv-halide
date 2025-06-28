@@ -125,9 +125,9 @@ PyObject *sep_conv(PyObject *module, PyObject *args, PyObject *kwargs) {
     return nullptr;
   }
   PyHalideBuffer<4> b_input_feature_map;
-  PyHalideBuffer<4> b_kernel;
-  PyHalideBuffer<3> b_pw_filter;
-  PyHalideBuffer<2> b_bias;
+  PyHalideBuffer<3> b_kernel;
+  PyHalideBuffer<2> b_pw_filter;
+  PyHalideBuffer<1> b_bias;
   PyHalideBuffer<4> b_pw;
   if (!b_input_feature_map.unpack(py_input_feature_map, 0, sep_conv_kwlist[0])) return nullptr;
   if (!b_kernel.unpack(py_kernel, 0, sep_conv_kwlist[1])) return nullptr;
