@@ -1,5 +1,15 @@
 """
-Generates depthwise separable convolutions in halide. Needs to be compiled to be used. See README for details.
+Generates depthwise separable convolutions in halide. Needs to be compiled to be used. See example below.
+
+cl /LD /EHsc /std:c++17 sep_conv.py.cpp sep_conv.o ^
+    /I C:\Users\dylan\Developer\tetramem\conv-halide\.venv\Lib\site-packages\halide\include ^
+    /I C:\User\dylan\Developer\tetramem\conv-halide\.venv\Lib\site-packages\pybind11\include ^
+    /I C:\Users\dylan\AppData\Roaming\uv\python\cpython-3.9.21-windows-x86_64-none\Include ^
+    /link ^
+    /LIBPATH:C:\Users\dylan\Developer\tetramem\conv-halide\.venv\Lib\site-packages\halide\lib ^
+    /LIBPATH:C:\Users\dylan\AppData\Roaming\uv\python\cpython-3.9.21-windows-x86_64-none\libs ^
+    python39.lib ^
+    /OUT:sep_conv.pyd
 
 Note: np and halide have dimensions flipped
 """
@@ -57,6 +67,7 @@ def main():
         input.set(hl.Buffer(input_np))
         kernel.set(hl.Buffer(kernel_np))
         pw_filter.set(hl.Buffer(pw_filter_np))
+        bias.set(hl.Buffer(bias_np))
 
         dw_out = dw.realize([8, 8, 2, 2])
         out = sep_conv.realize([8, 8, 3, 2])  # (W, H, C_out)
