@@ -20,7 +20,7 @@ uv sync
 uv run inference.py
 
 # 1) Generate Halide code for convolution
-uv run sep_conv_generate
+uv run sep_conv_generate.py
 
 # 2) Compile (replace paths as necessary)
 cd sep_conv

@@ -19,6 +19,8 @@ import numpy as np
 
 
 def main():
+    # =============== Algorithm =====================
+    
     # Vars and Funcs
     dw = hl.Func("dw")
     pw = hl.Func("pw")
@@ -44,6 +46,13 @@ def main():
 
     # sep_conv output (we can add ReLU here if we want)
     sep_conv = pw
+
+    # =============== Schedule =====================
+
+    
+
+
+    # =============== Module Generation =====================
 
     test = False
     if test:
